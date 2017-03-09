@@ -20,6 +20,9 @@ int main(int argc, char** argv){
 			std::cout << "\n = Error\n";
 		}
 		else{
+			calc->setVariable('e', (long double)2.71828);
+			calc->setVariable('p', (long double)3.14159);
+			
 			calc->printTree();
 			std::cout << "\n";
 			try{

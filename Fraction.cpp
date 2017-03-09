@@ -16,7 +16,12 @@ isFraction(true){
 		*this = Fraction(std::stoll(str));
 	}
 	else{
-		integer = str.substr(0, pos);
+		if(pos != 0){
+			integer = str.substr(0, pos);
+		}
+		else{
+			integer = 0;
+		}
 		std::string rest = str.substr(pos + 1, (str.size() - pos) - 1);
 		
 		*this = Fraction(std::stoll(integer)) + Fraction(std::stoll(rest), std::pow(10, rest.size()));
