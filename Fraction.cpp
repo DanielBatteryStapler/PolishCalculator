@@ -20,7 +20,8 @@ isFraction(true){
 			integer = str.substr(0, pos);
 		}
 		else{
-			integer = 0;
+			integer = '0';//kinda janky to set a string to zero, and then convert it to a number, but it gets the point across
+			//if there is no number before the decimal point, the integer part is 0
 		}
 		std::string rest = str.substr(pos + 1, (str.size() - pos) - 1);
 		
