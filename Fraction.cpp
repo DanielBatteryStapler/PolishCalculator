@@ -400,19 +400,23 @@ Fraction Fraction::operator/(const Fraction& num){
 
 Fraction Fraction::operator%(const Fraction& num){
 	if(isFraction && num.isFraction){
-		if(this->denominator == 0 || num.denominator == 0){
+		if(denominator == 0 || num.denominator == 0){
 			return Fraction(0, 0);
 		}
-		if(this->numerator == 0 || num.numerator == 0){
+		if(num.numerator == 0){
 			return Fraction(0, 0);
+		}
+		if(numerator == 0){
+			return Fraction(0, 1);
 		}
 		
 		Fraction a = *this;
-		if(a < 0){
+		if(a.numerator < 0){
 			a = a * -1;
 		}
+		
 		Fraction b = num;
-		if(b < 0){
+		if(b.numerator < 0){
 			b = b * -1;
 		}
 		
@@ -509,7 +513,7 @@ bool Fraction::operator<=(const Fraction& num){
 }
 
 bool Fraction::operator>=(const Fraction& num){
-	return !(*this > num || *this == num);
+	return *this > num || *this == num;
 }
 
 std::ostream& Fraction::operator<<(std::ostream& s){
