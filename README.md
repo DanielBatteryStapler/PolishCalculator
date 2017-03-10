@@ -8,11 +8,13 @@ Supports most operators
 Can store numbers as either long doubles, or as fraction; it will convert from fraction to floating point as needed
 
 #Usage:
->PolishCalculator <expression>
-will just execute the following expression, already has the variables p (pi) and e (e) set to approximate values 
->PolishCalculator
-will open up a calculator command line where you can just directly type in the expressions to calculate
-also supports setting custom varibles, unlike the single expression version
+\>PolishCalculator <expression>
+
+Will just calculate the following expression, it already has the variables p (pi) and e (e) set to approximate values 
+
+\>PolishCalculator
+
+Will open up a calculator command line where you can just directly type in the expressions to calculate; it also supports setting custom varibles, unlike the single expression version
 
 #Valid operators:
 ##Single Operand:
@@ -51,6 +53,8 @@ Modulo: % - programming style modulo
 Power: ^
 
 Log: l
+
+Assignment Equals: = - only valid in the beginning of an input in the calculate command-line version(the second usage). (e.g. =a +2 3 will set the variable a to 5 so then *a 2 would yield 10, but =+2 3 a would not be valid, the variable must come first) Variable will remember if they are fractions, decimals, or even sets
 
 #Sets
 A single "number"(or variable) can actually exist as a set of numbers, and they can be used in normal mathematical expression as you'd expect. For example: +u1 2u3 4 = {4, 5, 6} (written in normals maths as {1, 2} + {3, 4} = {4, 5, 6}). As you can see, it will find the sum of every number in the first set with every number in the second set, removng any repeats. It does discriminate based on the fractionness of the number. (i.e. 4.0 and 4 will not combine into a single number because one is a floating point and the other is considered a fraction)
