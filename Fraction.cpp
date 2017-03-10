@@ -424,6 +424,10 @@ Fraction Fraction::operator%(const Fraction& num){
 			a = a - b;
 		}
 		
+		if((numerator < 0) != (num.numerator < 0)){
+			a = a * -1;
+		}
+		
 		return a;
 	}
 	else{
