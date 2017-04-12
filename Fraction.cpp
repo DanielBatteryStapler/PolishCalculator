@@ -185,7 +185,7 @@ Fraction Fraction::sin(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::sin(getDecimal());
+		output = std::sin(getDecimal() * 3.141592653589793 / 180.0);
 	}
 	output.reduce();
 	return output;
@@ -197,7 +197,7 @@ Fraction Fraction::cos(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::cos(getDecimal());
+		output = std::cos(getDecimal() * 3.141592653589793 / 180.0);
 	}
 	output.reduce();
 	return output;
@@ -209,7 +209,7 @@ Fraction Fraction::tan(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::tan(getDecimal());
+		output = std::tan(getDecimal() * 3.141592653589793 / 180.0);
 	}
 	output.reduce();
 	return output;
@@ -221,7 +221,7 @@ Fraction Fraction::asin(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::asin(getDecimal());
+		output = std::asin(getDecimal()) * 180.0 / 3.141592653589793;
 	}
 	output.reduce();
 	return output;
@@ -233,7 +233,7 @@ Fraction Fraction::acos(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::acos(getDecimal());
+		output = std::acos(getDecimal())  * 180.0 / 3.141592653589793;
 	}
 	output.reduce();
 	return output;
@@ -245,7 +245,7 @@ Fraction Fraction::atan(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::atan(getDecimal());
+		output = std::atan(getDecimal())  * 180.0 / 3.141592653589793;
 	}
 	output.reduce();
 	return output;
