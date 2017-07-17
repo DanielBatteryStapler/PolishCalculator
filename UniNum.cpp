@@ -11,7 +11,7 @@ UniNum::UniNum(Fraction num){
 std::string UniNum::toString()const{
 	std::string output;
 	if(numSet.size() == 0){
-		output = "nan";
+		output = "EmptySet";
 	}
 	else if(numSet.size() == 1){
 		output = numSet.begin()->toString();

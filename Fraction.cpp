@@ -114,16 +114,26 @@ long long Fraction::getDenominator() const{
 }
 
 std::string Fraction::toString() const{
+	
+	static auto format = [](std::string numWithCommas){
+		int insertPosition = numWithCommas.length() - 3;
+		while (insertPosition > 0) {
+			numWithCommas.insert(insertPosition, ",");
+			insertPosition-=3;
+		}
+		return numWithCommas;
+	};
+	
 	std::string output;
 	if(isFraction){
 		if(denominator == 1){
-			output = std::to_string(numerator);
+			output = format(std::to_string(numerator));
 		}
 		else if(denominator == 0){
 			output = "nan";
 		}
 		else{
-			output = std::to_string(numerator) + '/' + std::to_string(denominator);
+			output = format(std::to_string(numerator)) + '/' + format(std::to_string(denominator));
 		}
 	}
 	else{
