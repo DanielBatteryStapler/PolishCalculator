@@ -26,7 +26,6 @@ static void nPrint(std::string s){
 enum OperatorType{Undefined, Const, Variable, Decimal, Union, Negative, Add, Subtract, Multiply, Divide, Modulo, Power, Sqrt, Sine, Cosine, Tangent, Insine, Incosine, Intangent, Log};
 
 using NumberType = UniNum;
-const long double pi = 3.14159265;
 
 struct Segment{
 	Segment():number(0),type(OperatorType::Undefined){}

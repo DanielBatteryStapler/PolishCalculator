@@ -1,5 +1,7 @@
 #include "Fraction.h"
 
+bool Fraction::useDegrees = false;
+
 Fraction::Fraction():
 numerator(0),
 denominator(1),
@@ -195,7 +197,12 @@ Fraction Fraction::sin(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::sin(getDecimal() * 3.141592653589793 / 180.0);
+		if(useDegrees){
+			output = std::sin(getDecimal() * pi / 180.0);
+		}
+		else{
+			output = std::sin(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;
@@ -207,7 +214,12 @@ Fraction Fraction::cos(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::cos(getDecimal() * 3.141592653589793 / 180.0);
+		if(useDegrees){
+			output = std::cos(getDecimal() * pi / 180.0);
+		}
+		else{
+			output = std::cos(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;
@@ -219,7 +231,12 @@ Fraction Fraction::tan(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::tan(getDecimal() * 3.141592653589793 / 180.0);
+		if(useDegrees){
+			output = std::tan(getDecimal() * pi / 180.0);
+		}
+		else{
+			output = std::tan(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;
@@ -231,7 +248,12 @@ Fraction Fraction::asin(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::asin(getDecimal()) * 180.0 / 3.141592653589793;
+		if(useDegrees){
+			output = std::asin(getDecimal()) * 180.0 / pi;
+		}
+		else{
+			output = std::asin(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;
@@ -243,7 +265,12 @@ Fraction Fraction::acos(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::acos(getDecimal())  * 180.0 / 3.141592653589793;
+		if(useDegrees){
+			output = std::acos(getDecimal()) * 180.0 / pi;
+		}
+		else{
+			output = std::acos(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;
@@ -255,7 +282,12 @@ Fraction Fraction::atan(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::atan(getDecimal())  * 180.0 / 3.141592653589793;
+		if(useDegrees){
+			output = std::atan(getDecimal()) * 180.0 / pi;
+		}
+		else{
+			output = std::atan(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;

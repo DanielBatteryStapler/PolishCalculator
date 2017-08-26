@@ -4,6 +4,8 @@
 #include <iostream>
 #include <ctgmath>
 
+const long double pi = 3.141592653589793;
+
 class Fraction{
 public:
 	Fraction();
@@ -12,6 +14,8 @@ public:
 	Fraction(const int num);
 	Fraction(const long long num, const long long den);
 	Fraction(const long double num);
+	
+	static bool useDegrees;
 	
 	bool isFraction;
 	
