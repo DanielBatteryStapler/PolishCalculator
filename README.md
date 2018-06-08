@@ -8,7 +8,7 @@ Supports most operators
 Can store numbers as either long doubles, or as fraction; it will convert from fraction to floating point as needed
 
 # Usage:
-\>PolishCalculator <expression>
+\>PolishCalculator \<expression\>
 
 Will just calculate the following expression, it already has the variables p (pi) and e (e) set to approximate values 
 
