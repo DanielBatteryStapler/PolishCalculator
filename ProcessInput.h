@@ -31,6 +31,7 @@ static void processInput(std::string input){
 			case ',':
 				//do nothing
 				break;
+			case '=':
 			case '1':
 			case '2':
 			case '3':

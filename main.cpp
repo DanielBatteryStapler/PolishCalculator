@@ -2,18 +2,36 @@
 #include <iostream>
 #include <ncurses.h>
 #include <vector>
+#include <string>
 
 #include "Operator.h"
 #include "ProcessInput.h"
 
 int main(int argc, char** argv){
 	std::cout << std::fixed;
-	if(argc > 1){
-		std::string input = argv[1];
-		for(int i = 2; i < argc; i++){
-			input += " " + std::string(argv[i]);
+	
+	bool graph = false;
+	std::string expressionInput;
+	
+	for(int i = 1; i < argc; i++){
+		if(std::string(argv[i]) == "--graph" || std::string(argv[i]) == "-g"){
+			graph = true;
 		}
-		Operator* calc = Operator::createExpressionTree(input);
+		else if(std::string(argv[i]) == "--degrees" || std::string(argv[i]) == "-d"){
+			Fraction::useDegrees = true;
+		}
+		else{
+			expressionInput += " " + std::string(argv[i]);
+		}
+	}
+	
+	if(graph){
+		std::cout << "Grpahing not currently supported!\n";
+		return 0;
+	}
+	
+	if(expressionInput.size() > 0){
+		Operator* calc = Operator::createExpressionTree(expressionInput);
 		if(calc == nullptr){
 			std::cout << "\n";
 			std::cout << "nullptr\n";
@@ -21,7 +39,7 @@ int main(int argc, char** argv){
 		}
 		else{
 			calc->setVariable('e', Fraction((long double)2.71828));
-			calc->setVariable('p', Fraction((long double)3.14159));
+			calc->setVariable('p', Fraction((long double)pi));
 			
 			calc->printTree();
 			std::cout << "\n";
@@ -44,7 +62,7 @@ int main(int argc, char** argv){
 	cbreak();
 	noecho();
 	keypad(stdscr, true);
-	scrollok(stdscr,true);
+	scrollok(stdscr, true);
 	
 	waddch(stdscr, '>');
 	wrefresh(stdscr);

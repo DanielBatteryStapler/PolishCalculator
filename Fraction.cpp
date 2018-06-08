@@ -1,5 +1,7 @@
 #include "Fraction.h"
 
+bool Fraction::useDegrees = false;
+
 Fraction::Fraction():
 numerator(0),
 denominator(1),
@@ -75,11 +77,13 @@ void Fraction::reduce(){
 		}
 	}
 	else{
+		//*
 		if(!std::isfinite(decimal)){
 			isFraction = true;
 			numerator = 0;
 			denominator = 0;
 		}
+		//*/
 	}
 }
 
@@ -114,16 +118,26 @@ long long Fraction::getDenominator() const{
 }
 
 std::string Fraction::toString() const{
+	
+	static auto format = [](std::string numWithCommas){
+		int insertPosition = numWithCommas.length() - 3;
+		while (insertPosition > 0) {
+			numWithCommas.insert(insertPosition, ",");
+			insertPosition-=3;
+		}
+		return numWithCommas;
+	};
+	
 	std::string output;
 	if(isFraction){
 		if(denominator == 1){
-			output = std::to_string(numerator);
+			output = format(std::to_string(numerator));
 		}
 		else if(denominator == 0){
 			output = "nan";
 		}
 		else{
-			output = std::to_string(numerator) + '/' + std::to_string(denominator);
+			output = format(std::to_string(numerator)) + '/' + format(std::to_string(denominator));
 		}
 	}
 	else{
@@ -185,7 +199,12 @@ Fraction Fraction::sin(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::sin(getDecimal() * 3.141592653589793 / 180.0);
+		if(useDegrees){
+			output = std::sin(getDecimal() * pi / 180.0);
+		}
+		else{
+			output = std::sin(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;
@@ -197,7 +216,12 @@ Fraction Fraction::cos(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::cos(getDecimal() * 3.141592653589793 / 180.0);
+		if(useDegrees){
+			output = std::cos(getDecimal() * pi / 180.0);
+		}
+		else{
+			output = std::cos(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;
@@ -209,7 +233,12 @@ Fraction Fraction::tan(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::tan(getDecimal() * 3.141592653589793 / 180.0);
+		if(useDegrees){
+			output = std::tan(getDecimal() * pi / 180.0);
+		}
+		else{
+			output = std::tan(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;
@@ -221,7 +250,12 @@ Fraction Fraction::asin(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::asin(getDecimal()) * 180.0 / 3.141592653589793;
+		if(useDegrees){
+			output = std::asin(getDecimal()) * 180.0 / pi;
+		}
+		else{
+			output = std::asin(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;
@@ -233,7 +267,12 @@ Fraction Fraction::acos(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::acos(getDecimal())  * 180.0 / 3.141592653589793;
+		if(useDegrees){
+			output = std::acos(getDecimal()) * 180.0 / pi;
+		}
+		else{
+			output = std::acos(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;
@@ -245,7 +284,12 @@ Fraction Fraction::atan(){
 		output = Fraction(0, 0);
 	}
 	else{
-		output = std::atan(getDecimal())  * 180.0 / 3.141592653589793;
+		if(useDegrees){
+			output = std::atan(getDecimal()) * 180.0 / pi;
+		}
+		else{
+			output = std::atan(getDecimal());
+		}
 	}
 	output.reduce();
 	return output;
@@ -326,6 +370,7 @@ Fraction Fraction::operator-(const Fraction& num){
 
 		if (this->numerator == 0){
 			Fraction c(-num.numerator, num.denominator);
+			c.reduce();
 			return c;
 		}
 		if (num.numerator == 0){
@@ -346,7 +391,6 @@ Fraction Fraction::operator-(const Fraction& num){
 		c.denominator = this->denominator * multiplea;
 
 		c.reduce();
-
 		return c;
 	}
 	else{
@@ -428,6 +472,7 @@ Fraction Fraction::operator%(const Fraction& num){
 			a = a * -1;
 		}
 		
+		a.reduce();
 		return a;
 	}
 	else{
@@ -465,7 +510,12 @@ bool Fraction::operator==(const Fraction& num){
 		return this->numerator == num.numerator && this->denominator == num.denominator;
 	}
 	else{
-		return getDecimal() == num.getDecimal();
+		if(isFraction == num.isFraction){
+			return getDecimal() == num.getDecimal();
+		}
+		else{
+			return false;
+		}
 	}
 }
 
@@ -475,7 +525,13 @@ bool Fraction::operator!=(const Fraction& num){
 
 bool Fraction::operator<(const Fraction& num) const{
 	if(isFraction && num.isFraction){
-		if(denominator == 0 || num.denominator == 0){
+		if(denominator == 0 && num.denominator == 0){
+			return false;
+		}
+		else if(denominator == 0 && num.denominator != 0){
+			return true;
+		}
+		else if(denominator != 0 && num.denominator == 0){
 			return false;
 		}
 		
@@ -494,17 +550,10 @@ bool Fraction::operator<(const Fraction& num) const{
 		return numerator * multiplea < num.numerator * multipleb;
 	}
 	else{
-		if(getDecimal() == num.getDecimal()){
-			if(isFraction){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
-		else{
+		if(isFraction == num.isFraction){
 			return getDecimal() < num.getDecimal();
 		}
+		return num.isFraction;
 	}
 }
 
