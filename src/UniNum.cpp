@@ -44,6 +44,7 @@ UniNum UniNum::sqrt(){
 	UniNum output;
 	forEach([&output](Fraction a){
 		output.numSet.insert(a.sqrt());
+		output.numSet.insert(a.sqrt() * Fraction(-1));
 	});
 	return output;
 }

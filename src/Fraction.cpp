@@ -77,11 +77,13 @@ void Fraction::reduce(){
 		}
 	}
 	else{
+		//*
 		if(!std::isfinite(decimal)){
 			isFraction = true;
 			numerator = 0;
 			denominator = 0;
 		}
+		//*/
 	}
 }
 
@@ -368,6 +370,7 @@ Fraction Fraction::operator-(const Fraction& num){
 
 		if (this->numerator == 0){
 			Fraction c(-num.numerator, num.denominator);
+			c.reduce();
 			return c;
 		}
 		if (num.numerator == 0){
@@ -388,7 +391,6 @@ Fraction Fraction::operator-(const Fraction& num){
 		c.denominator = this->denominator * multiplea;
 
 		c.reduce();
-
 		return c;
 	}
 	else{
@@ -470,6 +472,7 @@ Fraction Fraction::operator%(const Fraction& num){
 			a = a * -1;
 		}
 		
+		a.reduce();
 		return a;
 	}
 	else{
@@ -507,7 +510,12 @@ bool Fraction::operator==(const Fraction& num){
 		return this->numerator == num.numerator && this->denominator == num.denominator;
 	}
 	else{
-		return getDecimal() == num.getDecimal();
+		if(isFraction == num.isFraction){
+			return getDecimal() == num.getDecimal();
+		}
+		else{
+			return false;
+		}
 	}
 }
 
@@ -517,7 +525,13 @@ bool Fraction::operator!=(const Fraction& num){
 
 bool Fraction::operator<(const Fraction& num) const{
 	if(isFraction && num.isFraction){
-		if(denominator == 0 || num.denominator == 0){
+		if(denominator == 0 && num.denominator == 0){
+			return false;
+		}
+		else if(denominator == 0 && num.denominator != 0){
+			return true;
+		}
+		else if(denominator != 0 && num.denominator == 0){
 			return false;
 		}
 		
@@ -536,17 +550,10 @@ bool Fraction::operator<(const Fraction& num) const{
 		return numerator * multiplea < num.numerator * multipleb;
 	}
 	else{
-		if(getDecimal() == num.getDecimal()){
-			if(isFraction){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
-		else{
+		if(isFraction == num.isFraction){
 			return getDecimal() < num.getDecimal();
 		}
+		return num.isFraction;
 	}
 }
 

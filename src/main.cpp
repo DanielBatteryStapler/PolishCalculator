@@ -62,7 +62,7 @@ int main(int argc, char** argv){
 	cbreak();
 	noecho();
 	keypad(stdscr, true);
-	scrollok(stdscr,true);
+	scrollok(stdscr, true);
 	
 	waddch(stdscr, '>');
 	wrefresh(stdscr);
